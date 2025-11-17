@@ -62,6 +62,11 @@ func (v IntValidation) Min(min int64) IntValidation {
 	return v
 }
 
+func (v IntValidation) Max(max int64) IntValidation {
+	v.constraints = append(v.constraints, constraints.MaxInt(max))
+	return v
+}
+
 func (v IntValidation) Validate(value int64) IntResult {
 	var errors []core.Error
 	for _, constraint := range v.constraints {

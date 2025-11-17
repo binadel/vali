@@ -5,4 +5,5 @@ type Rule string
 
 const (
 	RuleMin Rule = "MIN"
+	RuleMax Rule = "MAX"
 )
