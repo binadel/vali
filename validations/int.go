@@ -1,6 +1,7 @@
 package validations
 
 import (
+	"github.com/binadel/vali/constraints"
 	"github.com/binadel/vali/core"
 	"github.com/mailru/easyjson/jwriter"
 )
@@ -56,10 +57,21 @@ type IntValidation struct {
 	constraints []core.IntValidator
 }
 
+func (v IntValidation) Min(min int64) IntValidation {
+	v.constraints = append(v.constraints, constraints.MinInt(min))
+	return v
+}
+
 func (v IntValidation) Validate(value int64) IntResult {
+	var errors []core.Error
+	for _, constraint := range v.constraints {
+		if err := constraint(value); err != nil {
+			errors = append(errors, err)
+		}
+	}
 	return IntResult{
 		path:   v.Path,
 		value:  value,
-		errors: []core.Error{},
+		errors: errors,
 	}
 }
