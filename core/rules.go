@@ -8,4 +8,5 @@ const (
 	RuleMaximum          Rule = "MAXIMUM"
 	RuleExclusiveMinimum Rule = "EXCLUSIVE_MINIMUM"
 	RuleExclusiveMaximum Rule = "EXCLUSIVE_MAXIMUM"
+	RuleMultipleOf       Rule = "MULTIPLE_OF"
 )

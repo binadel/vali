@@ -46,6 +46,11 @@ func Field(path []string) FieldPath {
 	}
 }
 
+// Segments return the path segments.
+func (p FieldPath) Segments() []string {
+	return p.segments
+}
+
 // MarshalEasyJSON writes the json representation to the output.
 func (p FieldPath) MarshalEasyJSON(w *jwriter.Writer) {
 	w.Raw(p.json, nil)
