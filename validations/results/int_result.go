@@ -5,12 +5,19 @@ import (
 	"github.com/mailru/easyjson/jwriter"
 )
 
+// IntResult represents the validation result for an integer field.
 type IntResult struct {
 	Path   core.FieldPath
 	Value  int64
 	Errors []core.Error
 }
 
+// IsValid returns whether the field has passed validation test.
+func (r IntResult) IsValid() bool {
+	return len(r.Errors) == 0
+}
+
+// MarshalEasyJSON writes the json representation to the output.
 func (r IntResult) MarshalEasyJSON(w *jwriter.Writer) {
 	w.RawByte('{')
 

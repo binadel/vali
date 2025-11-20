@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	result := vali.Int("product", "price").Max(1000).Validate(1111)
+	result := vali.Int("product", "price").ExclusiveMinimum(0).MultipleOf(50).Validate(1111)
 	json, _ := easyjson.Marshal(result)
 	fmt.Println(string(json))
 }
