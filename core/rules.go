@@ -12,4 +12,5 @@ const (
 	RuleLength           Rule = "LENGTH"
 	RuleMinLength        Rule = "MIN_LENGTH"
 	RuleMaxLength        Rule = "MAX_LENGTH"
+	RulePattern          Rule = "PATTERN"
 )

@@ -30,6 +30,12 @@ func (v StringValidation) MaxLength(maxLength int) StringValidation {
 	return v
 }
 
+// Pattern adds a regex pattern constraint to the field.
+func (v StringValidation) Pattern(pattern string) StringValidation {
+	v.constraints = append(v.constraints, constraints.PatternString(pattern))
+	return v
+}
+
 // Validate applies the validations constraints to the field value and returns the result.
 func (v StringValidation) Validate(value string) results.StringResult {
 	var errors []core.Error
