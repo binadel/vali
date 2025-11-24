@@ -25,6 +25,11 @@ var patternError = &errors.BasicError{
 	Message: "value does not match the required pattern",
 }
 
+var regexError = &errors.BasicError{
+	Code:    core.RuleRegex,
+	Message: "value must a valid regular expression",
+}
+
 // PatternString applies regex pattern constraint to a string.
 func PatternString(pattern string) core.StringValidator {
 	regex := getRegex(pattern)
@@ -34,4 +39,13 @@ func PatternString(pattern string) core.StringValidator {
 		}
 		return nil
 	}
+}
+
+// ParseRegex parses the given string as a regular expression.
+func ParseRegex(value string) (*regexp.Regexp, core.Error) {
+	regex, err := regexp.Compile(value)
+	if err != nil {
+		return nil, regexError
+	}
+	return regex, nil
 }

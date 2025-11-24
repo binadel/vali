@@ -5,6 +5,7 @@ import (
 
 	"github.com/binadel/vali/core"
 	"github.com/binadel/vali/errors"
+	"github.com/sosodev/duration"
 )
 
 var dateError = &errors.BasicError{
@@ -20,6 +21,11 @@ var timeError = &errors.BasicError{
 var dateTimeError = &errors.BasicError{
 	Code:    core.RuleDateTime,
 	Message: "value must be a valid date time",
+}
+
+var durationError = &errors.BasicError{
+	Code:    core.RuleDuration,
+	Message: "value must be a valid duration",
 }
 
 var timeLayouts = []string{
@@ -53,4 +59,13 @@ func ParseDateTime(value string) (time.Time, core.Error) {
 		return dateTime, nil
 	}
 	return time.Time{}, dateTimeError
+}
+
+func ParseDuration(value string) (time.Duration, error) {
+	d, err := duration.Parse(value)
+	if err != nil {
+		return 0, durationError
+	}
+	// Note: Conversion of IOS 8601 duration to a go duration has a little fuzziness for year and month.
+	return d.ToTimeDuration(), nil
 }
