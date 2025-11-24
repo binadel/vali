@@ -36,14 +36,14 @@ var timeLayouts = []string{
 	"15:04",
 }
 
-func ParseDate(value string) (time.Time, error) {
+func ParseDate(value string) (time.Time, core.Error) {
 	if date, err := time.Parse(time.DateOnly, value); err == nil {
 		return date, nil
 	}
 	return time.Time{}, dateError
 }
 
-func ParseTime(value string) (time.Time, error) {
+func ParseTime(value string) (time.Time, core.Error) {
 	// Try all valid RFC3339 time layouts
 	for _, layout := range timeLayouts {
 		if t, err := time.Parse(layout, value); err == nil {
@@ -61,7 +61,7 @@ func ParseDateTime(value string) (time.Time, core.Error) {
 	return time.Time{}, dateTimeError
 }
 
-func ParseDuration(value string) (time.Duration, error) {
+func ParseDuration(value string) (time.Duration, core.Error) {
 	d, err := duration.Parse(value)
 	if err != nil {
 		return 0, durationError

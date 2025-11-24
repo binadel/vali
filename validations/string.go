@@ -54,6 +54,26 @@ func (v StringValidation) IP() IpValidation {
 	}
 }
 
+func (v StringValidation) Time() TimeValidation {
+	return TimeValidation{
+		stringValidation: v,
+		onlyTime:         true,
+	}
+}
+
+func (v StringValidation) Date() TimeValidation {
+	return TimeValidation{
+		stringValidation: v,
+		onlyDate:         true,
+	}
+}
+
+func (v StringValidation) DateTime() TimeValidation {
+	return TimeValidation{
+		stringValidation: v,
+	}
+}
+
 // Validate applies the validations constraints to the field value and returns the result.
 func (v StringValidation) Validate(value string) results.StringResult {
 	var errors []core.Error
