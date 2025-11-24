@@ -18,7 +18,11 @@ func main() {
 	fmt.Println(string(json))
 
 	id := uuid.New().String()
-	result3 := vali.String("user", "email").UUID().Version(7).Validate(id)
+	result3 := vali.String("user", "id").UUID().Version(7).Validate(id)
 	json, _ = easyjson.Marshal(result3)
+	fmt.Println(string(json))
+
+	result4 := vali.String("user", "ip").IP().Version4().Validate("2f::1")
+	json, _ = easyjson.Marshal(result4)
 	fmt.Println(string(json))
 }

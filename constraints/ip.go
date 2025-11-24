@@ -22,29 +22,23 @@ var ipv6Error = &errors.BasicError{
 	Message: "value must be a valid IPv6 address",
 }
 
-func ParseIP(value string) (net.IP, error) {
-	ip := net.ParseIP(value)
-	if ip == nil {
-		return nil, ipError
+func ParseIP(value string, version int) (net.IP, core.Error) {
+	if ip := net.ParseIP(value); ip != nil {
+		if version == 4 {
+			if ipv4 := ip.To4(); ipv4 != nil {
+				return ipv4, nil
+			} else {
+				return nil, ipv4Error
+			}
+		}
+		if version == 6 {
+			if ipv4 := ip.To4(); ipv4 == nil {
+				return ip, nil
+			} else {
+				return nil, ipv6Error
+			}
+		}
+		return ip, nil
 	}
-	return ip, nil
-}
-
-func ParseIPv4(value string) (net.IP, error) {
-	ip := net.ParseIP(value)
-	if ip == nil {
-		return nil, ipv4Error
-	}
-	if ipv4 := ip.To4(); ipv4 != nil {
-		return ipv4, nil
-	}
-	return nil, ipv4Error
-}
-
-func ParseIPv6(value string) (net.IP, error) {
-	ip := net.ParseIP(value)
-	if ip == nil || ip.To4() != nil {
-		return nil, ipv6Error
-	}
-	return ip, nil
+	return nil, ipError
 }

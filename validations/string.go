@@ -48,6 +48,12 @@ func (v StringValidation) Email() EmailValidation {
 	}
 }
 
+func (v StringValidation) IP() IpValidation {
+	return IpValidation{
+		stringValidation: v,
+	}
+}
+
 // Validate applies the validations constraints to the field value and returns the result.
 func (v StringValidation) Validate(value string) results.StringResult {
 	var errors []core.Error
